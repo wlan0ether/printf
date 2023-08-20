@@ -5,7 +5,7 @@
 /**
 * _printf - This function prints to the stdout.
 * @format: Lists of the various arguments to be passed
-* Return: number of characters printed, calc.
+* Return: number of character printed, calc.
 */
 int _printf(const char *format, ...)
 {
@@ -23,11 +23,6 @@ int _printf(const char *format, ...)
 
 	while (*format)
 	{
-		if (*format == '%' && (*(format + 1) == ' ' || *(format + 1) == '%'))
-		{
-			return (-1);
-		}
-
 		if (*format == '%')
 		{
 			format++; /* moves past the '%' */
@@ -45,25 +40,12 @@ int _printf(const char *format, ...)
 			else if (*format == 's')
 			{
 				stringd = va_arg(param, const char*);
-				if (stringd == NULL)
+
+				while (*stringd)
 				{
-					const char null_str[] = "(null)";
-					int i = 0;
-					while (null_str[i] != '\0')
-					{
-						_putchar(null_str[i]);
-						i++;
-						calc++;
-					}
-				}
-				else
-				{
-					while (*stringd)
-					{
-						_putchar(*stringd);
-						stringd++;
-						calc++;
-					}
+					_putchar(*stringd);
+					stringd++;
+					calc++;
 				}
 			}
 			else if (*format == '%')
@@ -73,8 +55,9 @@ int _printf(const char *format, ...)
 			}
 			else
 			{
+				_putchar('%');
 				_putchar(*format);
-				calc++;
+				calc += 2;
 			}
 		}
 		else
@@ -87,4 +70,3 @@ int _printf(const char *format, ...)
 	va_end(param);
 	return (calc);
 }
-
