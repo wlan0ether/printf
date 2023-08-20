@@ -5,7 +5,7 @@
 /**
 * _printf - This function prints to the stdout.
 * @format: Lists of the various arguments to be passed
-* Return: number of character printed, calc.
+* Return: number of characters printed, calc.
 */
 int _printf(const char *format, ...)
 {
@@ -73,9 +73,8 @@ int _printf(const char *format, ...)
 			}
 			else
 			{
-				_putchar('%');
 				_putchar(*format);
-				calc += 2;
+				calc++;
 			}
 		}
 		else
@@ -88,3 +87,4 @@ int _printf(const char *format, ...)
 	va_end(param);
 	return (calc);
 }
+
