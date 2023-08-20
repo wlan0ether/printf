@@ -48,10 +48,11 @@ int _printf(const char *format, ...)
 				if (stringd == NULL)
 				{
 					const char null_str[] = "(null)";
-					while (*null_str)
+					int i = 0;
+					while (null_str[i] != '\0')
 					{
-						_putchar(*null_str);
-						null_str++;
+						_putchar(null_str[i]);
+						i++;
 						calc++;
 					}
 				}
@@ -69,6 +70,18 @@ int _printf(const char *format, ...)
 			{
 				_putchar('%');
 				calc++;
+			}
+			else if (*format == 'r')
+			{
+				/* Handle %r as a custom format specifier (print "Unknown:[%r]")*/
+				const char unknown_str[] = "Unknown:[%r]";
+				int i = 0;
+				while (unknown_str[i] != '\0')
+				{
+					_putchar(unknown_str[i]);
+					i++;
+					calc++;
+				}
 			}
 			else
 			{
