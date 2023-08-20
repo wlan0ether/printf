@@ -71,18 +71,6 @@ int _printf(const char *format, ...)
 				_putchar('%');
 				calc++;
 			}
-			else if (*format == 'r')
-			{
-				/* Handle %r as a custom format specifier (print "Unknown:[%r]")*/
-				const char unknown_str[] = "Unknown:[%r]";
-				int i = 0;
-				while (unknown_str[i] != '\0')
-				{
-					_putchar(unknown_str[i]);
-					i++;
-					calc++;
-				}
-			}
 			else
 			{
 				_putchar('%');
