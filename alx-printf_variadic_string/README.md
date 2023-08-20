@@ -1,1 +1,1 @@
-Directory contains all the task on the printf project I and Jesse did 
+This directory contains all the task for the printf project
