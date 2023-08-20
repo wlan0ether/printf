@@ -17,12 +17,17 @@ int _printf(const char *format, ...)
 	va_start(param, format);
 
 	if (format == NULL) /*checks for null before proceeding*/
-    {
-        return (-1);
-    }
+	{
+		return (-1);
+	}
 
 	while (*format)
 	{
+		if (*format == '%' && (*(format + 1) == ' ' || *(format + 1) == '%'))
+		{
+			return (-1);
+		}
+
 		if (*format == '%')
 		{
 			format++; /* moves past the '%' */
@@ -40,12 +45,24 @@ int _printf(const char *format, ...)
 			else if (*format == 's')
 			{
 				stringd = va_arg(param, const char*);
-
-				while (*stringd)
+				if (stringd == NULL)
 				{
-					_putchar(*stringd);
-					stringd++;
-					calc++;
+					const char null_str[] = "(null)";
+					while (*null_str)
+					{
+						_putchar(*null_str);
+						null_str++;
+						calc++;
+					}
+				}
+				else
+				{
+					while (*stringd)
+					{
+						_putchar(*stringd);
+						stringd++;
+						calc++;
+					}
 				}
 			}
 			else if (*format == '%')
