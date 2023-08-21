@@ -9,13 +9,13 @@
  */
 void print_char(va_list param, int *calc)
 {
-	int c = va_arg(param, int);
+	char c = va_arg(param, int);
 	_putchar(c);
 	(*calc)++;
 }
 
 /**
- * print_string - Print a string.
+ * print_string - This Prints a string.
  * @param: A va_list containing the string to print.
  * @calc: A pointer to an integer that tracks the character count.
  */
@@ -29,7 +29,7 @@ void print_string(va_list param, int *calc)
 	}
 
 	while (*stringd)
-    {
+	{
 		_putchar(*stringd);
 		stringd++;
 		(*calc)++;
@@ -37,7 +37,7 @@ void print_string(va_list param, int *calc)
 }
 
 /**
- * print_percent - Print a percentage sign.
+ * print_percent - This function Prints a percentage sign.
  * @calc: A pointer to an integer that tracks the character count.
  */
 void print_percent(int *calc)
@@ -47,7 +47,7 @@ void print_percent(int *calc)
 }
 
 /**
- * print_int - Print an integer.
+ * print_int - This Prints out an integer.
  * @param: A va_list containing the integer to print.
  * @calc: A pointer to an integer that tracks the character count.
  */
@@ -82,9 +82,9 @@ void print_int(va_list param, int *calc)
 }
 
 /**
- * _printf - This function prints to the stdout.
+ * _printf - This function prints to the standard output.
  * @format: Lists of the various arguments to be passed.
- * Return: Number of characters printed.
+ * Return: Number of characters printed, in this case calc.
  */
 int _printf(const char *format, ...)
 {
@@ -93,35 +93,19 @@ int _printf(const char *format, ...)
 
 	va_start(param, format);
 
-	if (format == NULL || *format == '\0')
+	while (format && *format)
 	{
-		return (-1);
-	}
-
-	while (*format)
-	{
-		if (*format == '%' && (*(format + 1) == ' ' || !*(format + 1)))
-		{
-			print_percent(&calc);
-			if (*(format + 1) == ' ')
-			{
-				_putchar(' ');
-				calc++;
-			}
-			format += 2;
-		}
-		else if (*format == '%')
+		if (*format == '%')
 		{
 			format++;
-			if (*format == '%')
+			if (*format == '\0')
+				break;
+
+			if (*format == ' ')
 			{
 				_putchar('%');
-				calc++;
-			}
-			else if (*format == ' ')
-			{
 				_putchar(' ');
-				calc++;
+				calc += 2;
 			}
 			else if (*format == 'c')
 			{
@@ -131,7 +115,7 @@ int _printf(const char *format, ...)
 			{
 				print_string(param, &calc);
 			}
-			else if(*format == 'd' || *format == 'i')
+			else if (*format == 'd' || *format == 'i')
 			{
 				print_int(param, &calc);
 			}
@@ -139,16 +123,12 @@ int _printf(const char *format, ...)
 			{
 				print_percent(&calc);
 			}
-			else if (*format == '\n')
-			{
-				_putchar('\n');
-				calc++;
-			}
 			else
 			{
-				print_percent(&calc);
+				_putchar('%');
+				calc++;
 				_putchar(*format);
-				calc += 2;
+				calc++;
 				return (-1);
 			}
 		}
@@ -159,7 +139,9 @@ int _printf(const char *format, ...)
 		}
 		format++;
 	}
+
 	va_end(param);
-	return (calc);
+
+	return calc;
 }
 
