@@ -23,7 +23,19 @@ int _printf(const char *format, ...)
 
 	while (*format)
 	{
-		if (*format == '%')
+		if (*format == '%' && (*(format + 1) == ' ' || !*(format + 1)))
+		{
+			_putchar('%');
+			calc++;
+			if (*(format + 1) == ' ')
+			{
+				_putchar(' ');
+				calc++;
+			}
+			format += 2;
+		}
+
+		else if (*format == '%')
 		{
 			format++; /* moves past the '%' */
 			if (*format == ' ') /*this checks for space after %*/
