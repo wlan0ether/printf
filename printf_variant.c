@@ -10,18 +10,19 @@
 void print_char(va_list param, int *calc)
 {
 	char c = va_arg(param, int);
+
 	_putchar(c);
 	(*calc)++;
 }
 
 /**
- * print_string - This Prints a string.
+ * print_string - Print a string.
  * @param: A va_list containing the string to print.
  * @calc: A pointer to an integer that tracks the character count.
  */
 void print_string(va_list param, int *calc)
 {
-	const char *stringd = va_arg(param, const char*);
+	const char *stringd = va_arg(param, const char *);
 
 	if (stringd == NULL)
 	{
@@ -37,7 +38,7 @@ void print_string(va_list param, int *calc)
 }
 
 /**
- * print_percent - This function Prints a percentage sign.
+ * print_percent - Print a percentage sign.
  * @calc: A pointer to an integer that tracks the character count.
  */
 void print_percent(int *calc)
@@ -47,44 +48,45 @@ void print_percent(int *calc)
 }
 
 /**
- * print_int - This Prints out an integer.
- * @param: A va_list containing the integer to print.
+ * process_format - The function here
+ * Processes a format specifier.
+ * @format: The format string.
+ * @param: A va_list containing the arguments.
  * @calc: A pointer to an integer that tracks the character count.
  */
-void print_int(va_list param, int *calc)
+void process_format(const char **format, va_list param, int *calc)
 {
-	int num = va_arg(param, int);
-	int num_copy = num;
-	int num_digits = 0;
-	int divisor = 1;
+	(*format)++; /* Move past the '%' */
 
-	if (num < 0)
+	if (**format == ' ') /* Check for space after % */
 	{
-		_putchar('-');
+		_putchar(' ');
 		(*calc)++;
-		num = -num;
 	}
-
-	while (num_copy / 10 != 0)
+	else if (**format == 'c')
 	{
-		num_digits++;
-		divisor *= 10;
-		num_copy /= 10;
+		print_char(param, calc);
 	}
-
-	while (divisor > 0)
+	else if (**format == 's')
 	{
-		_putchar((num / divisor) + '0');
-		(*calc)++;
-		num %= divisor;
-		divisor /= 10;
+		print_string(param, calc);
+	}
+	else if (**format == '%')
+	{
+		print_percent(calc);
+	}
+	else
+	{
+		_putchar('%');
+		_putchar(**format);
+		(*calc) += 2;
 	}
 }
 
 /**
- * _printf - This function prints to the standard output.
+ * _printf - This function prints to the stdout.
  * @format: Lists of the various arguments to be passed.
- * Return: Number of characters printed, in this case calc.
+ * Return: Number of characters printed.
  */
 int _printf(const char *format, ...)
 {
@@ -93,44 +95,16 @@ int _printf(const char *format, ...)
 
 	va_start(param, format);
 
-	while (format && *format)
+	if (format == NULL) /* Check for null before proceeding */
+	{
+		return (-1);
+	}
+
+	while (*format)
 	{
 		if (*format == '%')
 		{
-			format++;
-			if (*format == '\0')
-				break;
-
-			if (*format == ' ')
-			{
-				_putchar('%');
-				_putchar(' ');
-				calc += 2;
-			}
-			else if (*format == 'c')
-			{
-				print_char(param, &calc);
-			}
-			else if (*format == 's')
-			{
-				print_string(param, &calc);
-			}
-			else if (*format == 'd' || *format == 'i')
-			{
-				print_int(param, &calc);
-			}
-			else if (*format == '%')
-			{
-				print_percent(&calc);
-			}
-			else
-			{
-				_putchar('%');
-				calc++;
-				_putchar(*format);
-				calc++;
-				return (-1);
-			}
+			process_format(&format, param, &calc);
 		}
 		else
 		{
@@ -139,9 +113,7 @@ int _printf(const char *format, ...)
 		}
 		format++;
 	}
-
 	va_end(param);
-
-	return calc;
+	return (calc);
 }
 
