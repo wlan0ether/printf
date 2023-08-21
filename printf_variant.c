@@ -113,7 +113,12 @@ int _printf(const char *format, ...)
 		else if (*format == '%')
 		{
 			format++;
-			if (*format == ' ')
+			if (*format == '%')
+			{
+				_putchar('%');
+				calc++;
+			}
+			else if (*format == ' ')
 			{
 				_putchar(' ');
 				calc++;
@@ -133,6 +138,11 @@ int _printf(const char *format, ...)
 			else if (*format == '%')
 			{
 				print_percent(&calc);
+			}
+			else if (*format == '\n')
+			{
+				_putchar('\n');
+				calc++;
 			}
 			else
 			{
