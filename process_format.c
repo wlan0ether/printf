@@ -30,6 +30,11 @@ void process_format(const char **format, va_list param, int *calc)
 	{
 		print_int(param, calc);
 	}
+	else if (**format == 'b')
+	{
+		unsigned int num = va_arg(param, unsigned int);
+		print_binary(num, calc);
+	}
 	else if (**format == '%')
 	{
 		print_percent(calc);
