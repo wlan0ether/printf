@@ -29,9 +29,20 @@ void print_int(va_list param, int *calc)
 
 	while (divisor > 0)
 	{
-		_putchar((num / divisor) + '0');
-		(*calc)++;
-		num %= divisor;
-		divisor /= 10;
+		if (num / divisor == -3)
+		{
+			_putchar('\t');
+		}
+		else if (num / divisor == -10)
+		{
+			_putchar('\n');
+		}
+		else
+		{
+			_putchar((num / divisor) + '0');
+			(*calc)++;
+			num %= divisor;
+			divisor /= 10;
+		}
 	}
 }

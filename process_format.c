@@ -39,5 +39,6 @@ void process_format(const char **format, va_list param, int *calc)
 		_putchar('%');
 		_putchar(**format);
 		(*calc) += 2;
+		*calc = -1;
 	}
 }
