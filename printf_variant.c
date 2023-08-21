@@ -70,6 +70,7 @@ int _printf(const char *format, ...)
 				_putchar('%');
 				_putchar(*format);
 				calc += 2;
+				return (-1);
 			}
 		}
 		else
