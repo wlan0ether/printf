@@ -13,15 +13,24 @@
 
 void print_pointer_address(void *ptr, int *calc)
 {
-	int mib;
+	unsigned long mib;
+	int shift;
+	int digit;
+	char hexChar;
+	unsigned long address = (unsigned long)ptr;
 	char buffer[20]; /* this value adjust the buffer size as needed*/
 
-	/*Convert the pointer to hexadecimal string*/
-	snprintf(buffer, sizeof(buffer), "%p", ptr);
+	_putchar('0'); /*This prints hexadecimal prefixes '0x'*/
+	_putchar('x');
+	(*calc) += 2;
 
-	for (mib = 0; buffer[mib] != '\0'; mib++)
+	/*manually iterating and converting them to a hexadecimal string*/
+	for (mib = 0; mib < sizeof(unsigned long) *2; mib++)
 	{
-		_putchar(buffer[mib]);
+		shift = (sizeof(unsigned long) * 2 - 1 - mib) * 4;
+		digit = (address >> shift) & 0xF;
+		hexChar = (digit < 10) ? ('0' + digit) : ('a' + digit - 10);
+		_putchar(hexChar);
 		(*calc)++;
 	}
 }

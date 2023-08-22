@@ -11,9 +11,10 @@
  */
 void process_pointer(const char **format, va_list param, int *calc)
 {
-	(*format)++; /*Move past specifier %*/
-	void *ptr = va_arg(param, *void);
+	void *ptr;
 
+	(*format)++; /*Move past specifier %*/
+	ptr = va_arg(param, void *);
 	print_pointer_address(ptr, calc);
 }
 
