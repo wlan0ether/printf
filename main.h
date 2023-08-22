@@ -20,6 +20,11 @@ void print_binary(unsigned int num, int *calc);
 
 void print_long(va_list param, int *calc);
 
+void print_unsigned(va_list param, int *calc);
+
+void print_octal(va_list param, int *calc);
+
+void print_hex(va_list param, int capital, int *calc);
 
 
 
