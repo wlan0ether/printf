@@ -35,4 +35,3 @@ int _printf(const char *format, ...)
 	va_end(param);
 	return (calc);
 }
-

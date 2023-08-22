@@ -18,6 +18,10 @@ void process_format(const char **format, va_list param, int *calc);
 
 void print_binary(unsigned int num, int *calc);
 
+void print_long(va_list param, int *calc);
+
+
+
 
 #endif
 
