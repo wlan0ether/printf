@@ -3,48 +3,6 @@
 #include "main.h"
 
 /**
- * process_integer - Handles %d, %i, %ld, %li format specifiers.
- * @format: Pointer to the format string, updated to the next character.
- * @param: A va_list containing the arguments.
- * @calc: Tracks character count.
- */
-
-static void process_integer(const char **format, va_list param, int *calc)
-{
-	int is_long = 0; /*A flag to check for long specifier (l)*/
-
-	if (**format == 'l')
-	{
-		(*format)++; /*Move past 'l'*/
-		is_long = 1;
-	}
-
-	if (**format == 'd' || **format == 'i')
-	{
-		if (is_long)
-		{
-			print_long(param, calc);
-		}
-		else
-		{
-			print_int(param, calc);
-		}
-	}
-	else
-	{
-		/* Handle unsupported format specifiers after '%d' or '%li'*/
-		_putchar('%');
-		if (is_long)
-		{
-			_putchar('l');
-		}
-		_putchar(**format);
-		(*calc) += (is_long ? 2 : 1);
-	}
-}
-
-
-/**
  * process_format - The function here
  * Processes a format specifier.
  * @format: The format string.
@@ -82,9 +40,9 @@ void process_format(const char **format, va_list param, int *calc)
 	{
 		print_percent(calc);
 	}
-	else if (**format == 'd' || **format == 'i' || **format == 'l')
+	else if (**format == 'd' || **format == 'i')
 	{
-		process_integer(format, param, calc);
+		print_int(param, calc);
 	}
 	else
 	{
