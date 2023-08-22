@@ -18,7 +18,7 @@ void print_pointer_address(void *ptr, int *calc)
 	int digit;
 	char hexChar;
 	unsigned long address = (unsigned long)ptr;
-	char buffer[20]; /* this value adjust the buffer size as needed*/
+	char buffer[50]; /* this value adjust the buffer size as needed*/
 
 	_putchar('0'); /*This prints hexadecimal prefixes '0x'*/
 	_putchar('x');
