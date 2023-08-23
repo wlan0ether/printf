@@ -1,6 +1,4 @@
 #include "main.h"
-#include <stdarg.h>
-#include <stddef.h>
 
 /**
  * _printf - This function prints to the stdout.
@@ -10,28 +8,39 @@
 int _printf(const char *format, ...)
 {
 	va_list param;
-	int calc = 0;
+	unsigned int ib, calc = 0, str_count;
 
-	va_start(param, format);
-
-	if (format == NULL) /* Check for null before proceeding */
+	if (!format || format[0] == '%' && format[1] == '\0')
 	{
 		return (-1);
 	}
 
-	while (*format)
+	va_start(param, format);
+
+	for (ib = 0; format[ib] != '\0'; ib++)
 	{
-		if (*format == '%')
+		if (format[ib] != '%')
 		{
-			process_format(&format, param, &calc);
+			_putchar(format[ib]);
 		}
-		else
+		else if (format[ib] == '%' && format[ib + 1] == 'c')
 		{
-			_putchar(*format);
-			calc++;
+			_putchar(va_arg(param, int));
+			ib++;
 		}
-		format++;
+		else if (format[ib + 1] == 's')
+		{
+			str_count = _putss(va_arg(param, char *));
+			ib++;
+			calc += (str_count - 1);
+		}
+		else if (format[ib + 1] == '%')
+		{
+			_putchar('%');
+		}
+		calc++;
 	}
+
 	va_end(param);
 	return (calc);
 }
