@@ -30,6 +30,7 @@ void print_octal(va_list param, int *calc);
 
 void print_hex(va_list param, int capital, int *calc);
 
+int main(showFormattedOutput);
 
 
 #endif
