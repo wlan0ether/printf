@@ -9,29 +9,40 @@
  */
 int _printf(const char *format, ...)
 {
-	va_list param;
-	int calc = 0;
+    va_list param;
+    unsigned int ib, calc = 0, str_count;
 
-	va_start(param, format);
+    if (!format || format[0] == '%' && format[1] == '\0')
+    {
+        return (-1);
+    }
 
-	if (format == NULL) /* Check for null before proceeding */
-	{
-		return (-1);
-	}
+    va_start(param, format);
 
-	while (*format)
-	{
-		if (*format == '%')
-		{
-			process_format(&format, param, &calc);
-		}
-		else
-		{
-			_putchar(*format);
-			calc++;
-		}
-		format++;
-	}
-	va_end(param);
-	return (calc);
+    for (ib = 0; format[ib] != '\0'; ib++)
+    {
+        if (format[ib] != '%')
+        {
+            _putchar(format[ib]);
+        }
+        else if (format[ib] == '%' && format[ib + 1] == 'c')
+        {
+            _putchar(va_arg(param, int));
+            ib++;
+        }
+        else if (format[ib + 1] == 's')
+        {
+            str_count = puts(va_arg(param, char *));
+            ib++;
+            calc += (str_count - 1);
+        }
+        else if (format[ib + 1] == '%')
+        {
+            _putchar('%');
+        }
+        calc++;
+    }
+
+    va_end(param);
+    return (calc);
 }
