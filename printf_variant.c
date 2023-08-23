@@ -10,7 +10,7 @@ int _printf(const char *format, ...)
 	va_list param;
 	unsigned int ib, calc = 0, str_count;
 
-	if (!format || format[0] == '%' && format[1] == '\0')
+	if (!format || (format[0] == '%' && format[1] == '\0'))
 	{
 		return (-1);
 	}
