@@ -33,4 +33,45 @@ int print_unsigned(va_list param, char buffer[],
  
         	return (write_unsgnd(0, j, buffer, flag, wid, fmt_prec, size));
 }
+/************* PRINT UNSIGNED NUMBER IN OCTAL  ****************/
+/**
+ * print_octal – function outputs %u number in octal notation
+ * @param: contains all list of arguments
+ * @buffer: Buffer array to handle print
+ * @flag:  Calculates active flags
+ * @wid: A variable that get width
+ * @fmt_prec: Precision specification
+ * @size: Size specifier
+ * Return: Number of chars printed
+ */
+int print_octal(va_list param, char buffer[],
+        	int flag, int wid, int fmt_prec, int size)
+{
+ 
+        	int j = BUFF_SIZE - 2;
+        	unsigned long int digit = va_arg(param, unsigned long int);
+        	unsigned long int init_digit = digit;
+ 
+        	UNUSED(wid);
+ 
+        	digit = convert_unsigned(digit, size);
+ 
+        	if (digit == 0)
+                    	buffer[j--] = '0';
+ 
+        	buffer[BUFF_SIZE - 1] = '\0';
+ 
+        	while (num > 0)
+        	{
+                    	buffer[j--] = (digit % 8) + '0';
+                    	digit /= 8;
+        	}
+ 
+        	if (flag & F_HASH && init_digit != 0)
+                    	buffer[j--] = '0';
+ 
+        	j++;
+ 
+        	return (write_unsgnd(0, j, buffer, flag, wid, fmt_prec, size));
+}
 
