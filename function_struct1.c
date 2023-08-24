@@ -33,7 +33,6 @@ int print_unsigned(va_list param, char buffer[],
  
         	return (write_unsgnd(0, j, buffer, flag, wid, fmt_prec, size));
 }
-/************* PRINT UNSIGNED NUMBER IN OCTAL  ****************/
 /**
  * print_octal – function outputs %u number in octal notation
  * @param: contains all list of arguments
