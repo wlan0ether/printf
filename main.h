@@ -12,7 +12,5 @@ int _putss(char *c);
 
 int _printf(const char *format, ...);
 
-
-
 #endif
 

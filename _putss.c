@@ -19,3 +19,4 @@ int _putss(char *c)
 	}
 	return (mib);
 }
+

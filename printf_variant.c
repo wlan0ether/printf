@@ -11,9 +11,7 @@ int _printf(const char *format, ...)
 	unsigned int ib, calc = 0, str_count;
 
 	if (!format || (format[0] == '%' && format[1] == '\0'))
-	{
 		return (-1);
-	}
 
 	va_start(param, format);
 
@@ -35,12 +33,9 @@ int _printf(const char *format, ...)
 			calc += (str_count - 1);
 		}
 		else if (format[ib + 1] == '%')
-		{
 			_putchar('%');
-		}
 		calc++;
 	}
-
 	va_end(param);
 	return (calc);
 }
