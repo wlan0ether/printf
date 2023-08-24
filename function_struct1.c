@@ -73,7 +73,7 @@ int print_octal(va_list param, char buffer[],
  
         	return (write_unsgnd(0, j, buffer, flag, wid, fmt_prec, size));
 }
-/************** PRINT UNSIGNED NUMBER IN HEXADECIMAL **************/
+
 /**
  * print_hexadecimal – outputs lower hexadecimal notation
  * @param: handles list of arguments
