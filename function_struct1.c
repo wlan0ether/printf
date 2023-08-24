@@ -73,4 +73,21 @@ int print_octal(va_list param, char buffer[],
  
         	return (write_unsgnd(0, j, buffer, flag, wid, fmt_prec, size));
 }
+/************** PRINT UNSIGNED NUMBER IN HEXADECIMAL **************/
+/**
+ * print_hexadecimal – outputs lower hexadecimal notation
+ * @param: handles list of arguments
+ * @buffer: Buffer array to handle print
+ * @flag:  Calculates active flags
+ * @wid: variable that fetches width
+ * @fmt_prec: Precision specification
+ * @size: Size specifier
+ * Return: Number of chars printed
+ */
+int print_hexadecimal(va_list param, char buffer[],
+        	int flag, int wid, int fmt_prec, int size)
+{
+        	return (print_hexa(param, "0123456789abcdef", buffer,
+                    	flag, 'x', wid, fmt_prec, size));
+}
 
