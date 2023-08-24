@@ -90,4 +90,20 @@ int print_hexadecimal(va_list param, char buffer[],
         	return (print_hexa(param, "0123456789abcdef", buffer,
                     	flag, 'x', wid, fmt_prec, size));
 }
-
+/************* PRINT UNSIGNED NUMBER IN UPPER HEXADECIMAL **************/
+/**
+ * print_hexa_upper – outputs in upper hexadecimal notation
+ * @param: handles inputted arguments
+ * @buffer: Buffer array to handle print
+ * @flag:  Calculates active flags
+ * @wid: variable that fetches width
+ * @fmt_prec: Precision specification
+ * @size: Size specifier
+ * Return: Number of chars printed
+ */
+int print_hexa_upper(va_list param, char buffer[],
+        	int flag, int wid, int fmt_prec, int size)
+{
+        	return (print_hexa(param, "0123456789ABCDEF", buffer,
+                    	flag, 'X', wid, fmt_prec, size));
+}
