@@ -108,7 +108,6 @@ int print_hexa_upper(va_list param, char buffer[],
                     	flag, 'X', wid, fmt_prec, size));
 }
 
-/************** PRINT HEXX NUM IN LOWER OR UPPER **************/
 /**
  * print_hexa - Prints a hexadecimal number in lower or upper
  * @param: contains list of arguments
