@@ -50,7 +50,7 @@ int print_pointer(va_list param, char buffer[],
         	return (write_pointer(buffer, idx, length,
                     	wid, flag, filler, extra_c, filler_start));
 }
-/************************* PRINT NON PRINTABLE *************************/
+
 /**
  * print_non_printable - print ascii codes in hex of non printable chars
  * @param: container for list of arguments
