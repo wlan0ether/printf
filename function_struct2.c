@@ -89,7 +89,6 @@ int print_non_printable(va_list param, char buffer[],
  
         	return (write(1, buffer, j + offset));
 }
-/************************* PRINT REVERSE *************************/
 /**
  * print_reverse – Function that prints reverse string.
  * @param: List of arguments
