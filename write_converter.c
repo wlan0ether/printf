@@ -189,4 +189,59 @@ int write_unsgnd(int is_negative, int idx,
  
         	return (write(1, &buffer[idx], length));
 }
+/**
+ * write_pointer – outputs addresses in memory
+ * @buffer: Arrays of charactersx
+ * @idx: Index at which the number starts in the buffer
+ * @length: Length of number
+ * @wid: Width getter
+ * @flag: Flags specifier
+ * @filler: Char representing the padding
+ * @extra_c: Char representing extra char
+ * @filler_start: Index at which filling should start
+ *
+ * Return: Number of written chars.
+ */
+int write_pointer(char buffer[], int idx, int length,
+        	int wid, int flag, char filler, char extra_c, int filler_start)
+{
+        	int j;
+ 
+        	if (wid > length)
+        	{
+                    	for (j = 3; j < wid - length + 3; j++)
+                                	buffer[j] = filler;
+                    	buffer[j] = '\0';
+                    	if (flag & F_SUB && filler == ' ')
+                    	{
+                                	buffer[--idx] = 'x';
+                                	buffer[--idx] = '0';
+                                	if (extra_c)
+                                            	buffer[--idx] = extra_c;
+                                	return (write(1, &buffer[idx], length) + write(1, &buffer[3], j - 3));
+                    	}
+                    	else if (!(flag & F_SUB) && filler == ' ')
+                    	{
+                                	buffer[--idx] = 'x';
+                                	buffer[--idx] = '0';
+                                	if (extra_c)
+                                            	buffer[--idx] = extra_c;
+                                	return (write(1, &buffer[3], j - 3) + write(1, &buffer[idx], length));
+                    	}
+                    	else if (!(flag & F_SUB) && filler == '0')/* extra char to left of filler */
+                    	{
+                                	if (extra_c)
+                                            	buffer[--filler_start] = extra_c;
+                                	buffer[1] = '0';
+                                	buffer[2] = 'x';
+                                	return (write(1, &buffer[filler_start], j - filler_start) +
+                                            	write(1, &buffer[idx], length - (1 - filler_start) - 2));
+                    	}
+        	}
+        	buffer[--idx] = 'x';
+        	buffer[--idx] = '0';
+        	if (extra_c)
+                    	buffer[--idx] = extra_c;
+        	return (write(1, &buffer[idx], BUFF_SIZE - j - 1));
+}
 
