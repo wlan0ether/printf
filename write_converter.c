@@ -132,4 +132,61 @@ int write_num(int idx, char buffer[],
                     	buffer[--idx] = extra_c;
         	return (write(1, &buffer[idx], length));
 }
+/**
+ * write_unsgnd – This function go give an unsigned number
+ * @is_negative: A validator, if num is negative
+ * @idx: Index at which numbers start in buffer
+ * @buffer: Array of charactersx
+ * @flag: Flags specifiers
+ * @wid: Width specifier
+ * @fmt_prec: Precision specifier
+ * @size: Size specifier
+ *
+ * Return: Number of written chars.
+ */
+int write_unsgnd(int is_negative, int idx,
+        	char buffer[],
+        	int flag, int wid, int fmt_prec, int size)
+{
+        	/* The number is stored at the bufer's right and starts at position j */
+        	int length = BUFF_SIZE - idx - 1, j = 0;
+        	char filler = ' ';
+ 
+        	UNUSED(is_negative);
+        	UNUSED(size);
+ 
+        	if (fmt_prec == 0 && idx == BUFF_SIZE - 2 && buffer[idx] == '0')
+                    	return (0); /* no char is printed */
+ 
+        	if (fmt_prec > 0 && fmt_prec < length)
+                    	filler = ' ';
+ 
+        	while (fmt_prec > length)
+        	{
+                    	buffer[--idx] = '0';
+                    	length++;
+        	}
+ 
+        	if ((flag & F_ZERO) && !(flag & F_SUB))
+                    	filler = '0';
+ 
+        	if (wid > length)
+        	{
+                    	for (j = 0; j < wid - length; j++)
+                                	buffer[j] = filler;
+ 
+                    	buffer[j] = '\0';
+ 
+                    	if (flag & F_SUB) /* Assigns extra char to left of buffer]*/
+                    	{
+                                	return (write(1, &buffer[idx], length) + write(1, &buffer[0], j));
+                    	}
+                    	else /* Assigns extra char to left of filler*/
+                    	{
+                                	return (write(1, &buffer[0], j) + write(1, &buffer[idx], length));
+                    	}
+        	}
+ 
+        	return (write(1, &buffer[idx], length));
+}
 
