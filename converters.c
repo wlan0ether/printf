@@ -48,4 +48,20 @@ int is_digit(char a)
  
         	return (0);
 }
+/**
+ * convert_number_size - introduces a number to the specified size
+ * @num: The number to be specified.
+ * @size: Number that shows the type to be casted.
+ *
+ * Return: Casted value of num
+ */
+long int convert_number_size(long int num, int size)
+{
+        	if (size == S_LONG)
+                    	return (num);
+        	else if (size == S_SHORT)
+                    	return ((short)num);
+ 
+        	return ((int)num);
+}
 
