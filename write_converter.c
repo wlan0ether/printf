@@ -74,4 +74,62 @@ int write_number(int is_negative, int idx, char buffer[],
         	return (write_num(idx, buffer, flag, wid, fmt_prec,
                     	length, filler, extra_ch));
 }
+/**
+ * write_num – This function writesz a number using a bufffer
+ * @idx: Index at which the number starts on the buffer
+ * @buffer: Buffer
+ * @flag: Calculate flags that are active
+ * @wid: width
+ * @fmt_prec: Precision specifier
+ * @length: Number length
+ * @filler: adds extra character or space for alignment
+ * @extra_c: contains the extra characters
+ *
+ * Return: Number of printed chars.
+ */
+int write_num(int idx, char buffer[],
+        	int flag, int wid, int fmt_prec,
+        	int length, char filler, char extra_c)
+{
+        	int j, filler_start = 1;
+ 
+        	if (fmt_prec == 0 && idx == BUFF_SIZE - 2 && buffer[idx] == '0' && wid == 0)
+                    	return (0); /* no char is printed */
+        	if (fmt_prec == 0 && idx == BUFF_SIZE - 2 && buffer[idx] == '0')
+                    	buffer[idx] = filler = ' '; /* width is displayd with filler ' ' */
+        	if (fmt_prec > 0 && fmt_prec < length)
+                    	filler = ' ';
+        	while (fmt_prec > length)
+                    	buffer[--idx] = '0', length++;
+        	if (extra_c != 0)
+                    	length++;
+        	if (wid > length)
+        	{
+                    	for (j = 1; j < wid - length + 1; j++)
+                                	buffer[j] = filler;
+                    	buffer[j] = '\0';
+                    	if (flag & F_SUB && filler == ' ')/* Assigns extra char to left of buffr */
+                    	{
+                                	if (extra_c)
+                                            	buffer[--idx] = extra_c;
+                                	return (write(1, &buffer[idx], length) + write(1, &buffer[1], j - 1));
+                    	}
+                    	else if (!(flags & F_SUB) && filler == ' ')/* extra char to left of buffr */
+                    	{
+                                	if (extra_c)
+                                            	buffer[--idx] = extra_c;
+                                	return (write(1, &buffer[1], j - 1) + write(1, &buffer[idx], length));
+                    	}
+                    	else if (!(flag & F_SUB) && filler == '0')/* extra char to left of filler */
+                    	{
+                                	if (extra_c)
+                                            	buffer[--filler_start] = extra_c;
+                                	return (write(1, &buffer[filler_start], j - filler_start) +
+                                            	write(1, &buffer[idx], length - (1 - filler_start)));
+                    	}
+        	}
+        	if (extra_c)
+                    	buffer[--idx] = extra_c;
+        	return (write(1, &buffer[idx], length));
+}
 
