@@ -35,4 +35,17 @@ int append_hex_code(char ascii_code, char buffer[], int j)
  
         	return (3);
 }
+/**
+ * is_digit – Confirms that a char is digit
+ * @a: The char that will be checked
+ *
+ * Return: if c is a number, returns 1, 0 otherwise
+ */
+int is_digit(char a)
+{
+        	if (a >= '0' && a <= '9')
+                    	return (1);
+ 
+        	return (0);
+}
 
