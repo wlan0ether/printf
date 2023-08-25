@@ -1,0 +1,46 @@
+#include "main.h"
+ 
+/************************* WRITE CONVERTER *************************/
+/**
+ * handle_write_char – This function prints out a string you know
+ * @c: character to be outputted or printed
+ * @buffer: Buffer array in place to handle print
+ * @flag:  Calculates active flags.
+ * @wid: variable that fetches the width.
+ * @fmt_prec: precision indicator
+ * @size: Size indicator
+ *
+ * Return: Number of characters printed.
+ */
+int handle_write_char(char c, char buffer[],
+        	int flag, int wid, int fmt_prec, int size)
+{ /* char is stored at left and filler at buffer's right */
+        	int j = 0;
+        	char filler = ' ';
+ 
+        	UNUSED(fmt_prec);
+        	UNUSED(size);
+ 
+        	if (flag & F_ZERO)
+                    	filler = '0';
+ 
+        	buffer[j++] = c;
+        	buffer[j] = '\0';
+ 
+        	if (wid > 1)
+        	{
+                    	buffer[BUFF_SIZE - 1] = '\0';
+                    	for (j = 0; j< wid - 1; j++)
+                                	buffer[BUFF_SIZE - j - 2] = filler;
+ 
+                    	if (flag & F_SUB)
+                                	return (write(1, &buffer[0], 1) +
+                                                        	write(1, &buffer[BUFF_SIZE - j - 1], wid - 1));
+                    	else
+                                	return (write(1, &buffer[BUFF_SIZE - j - 1], wid - 1) +
+                                                        	write(1, &buffer[0], 1));
+        	}
+ 
+        	return (write(1, &buffer[0], 1));
+}
+
