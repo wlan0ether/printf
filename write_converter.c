@@ -42,4 +42,36 @@ int handle_write_char(char c, char buffer[],
  
         	return (write(1, &buffer[0], 1));
 }
+/**
+ * write_number – This function prints out a number
+ * @is_negative: verifies if a number is negative -
+ * @idx: index to be looped through.
+ * @buffer: This buffer contains an array that handle printx
+ * @flag:  Calculates active flags always
+ * @wid: variable that get width.
+ * @fmt_prec: precision specifier
+ * @size: Size specifier
+ *
+ * Return: Number of chars printed.
+ */
+int write_number(int is_negative, int idx, char buffer[],
+        	int flag, int wid, int fmt_prec, int size)
+{
+        	int length = BUFF_SIZE - idx - 1;
+        	char filler = ' ', extra_ch = 0;
+ 
+        	UNUSED(size);
+ 
+        	if ((flag & F_ZERO) && !(flag & F_SUB))
+                    	filler = '0';
+        	if (is_negative)
+                    	extra_ch = '-';
+        	else if (flag & F_ADD)
+                    	extra_ch = '+';
+        	else if (flag & F_SPACE)
+                    	extra_ch = ' ';
+ 
+        	return (write_num(idx, buffer, flag, wid, fmt_prec,
+                    	length, filler, extra_ch));
+}
 
