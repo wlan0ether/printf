@@ -1,7 +1,7 @@
 #include "main.h"
- 
+
 void print_buffer(char buffer[], int *buff_idx);
- 
+
 /**
  * _printf - Printf function
  * @format: format.
@@ -9,84 +9,52 @@ void print_buffer(char buffer[], int *buff_idx);
  */
 int _printf(const char *format, ...)
 {
-        	int j, printed = 0, calc = 0;
-        	int flag, wid, fmt_prec, size, buff_idx = 0;
-        	va_list list;
-        	char buffer[BUFF_SIZE];
- 
-        	if (format == NULL)
-                    	return (-1);
- 
-        	va_start(list, format);
- 
-        	for (j = 0; format && format[j] != '\0'; j++)
-        	{
-                    	if (format[j] != '%')
-                    	{
-                                	buffer[buff_ind++] = format[j];
-                                	if (buff_idx == BUFF_SIZE)
-                                            	print_buffer(buffer, &buff_idx);
-                                	/* write(1, &format[j], 1);*/
-                                	calc++;
-                    	}
-                    	else
-                    	{
-                                	print_buffer(buffer, &buff_idx);
-                                	flag = get_flags(format, &j);
-                                	wid = get_width(format, &j, param);
-                                	fmt_prec = get_precision(format, &j, param);
-                                	size = get_size(format, &j);
-                                	++j;
-                                	printed = trigger_print(format, &j, param, buffer,
-                                            	flag, wid, fmt_prec, size);
-                                	if (printed == -1)
-                                            	return (-1);
-                                	calc += printed;
-                    	}
-        	}
- 
-        	print_buffer(buffer, &buff_idx);
- 
-        	va_end(list);
- 
-        	return (calc);
+	int j, printed = 0, calc = 0;
+	int flag, wid, fmt_prec, size, buff_idx = 0;
 	va_list list;
-	unsigned int ib, calc = 0, str_count;
+	char buffer[BUFF_SIZE];
 
-	if (!format || (format[0] == '%' && format[1] == '\0'))
+	if (format == NULL)
 		return (-1);
 
-	va_start(list, format);
-
-	for (ib = 0; format[ib] != '\0'; ib++)
+	va_start(param, format);
+	for (j = 0; format && format[j] != '\0'; j++)
 	{
-		if (format[ib] != '%')
+		if (format[j] != '%')
 		{
-			_putchar(format[ib]);
+			buffer[buff_ind++] = format[j];
+			if (buff_idx == BUFF_SIZE)
+				print_buffer(buffer, &buff_idx);
+			calc++;
 		}
-		else if (format[ib] == '%' && format[ib + 1] == 'c')
+		else
 		{
-			_putchar(va_arg(list, int));
-			ib++;
+			print_buffer(buffer, &buff_idx);
+			flag = get_flags(format, &j);
+			wid = get_width(format, &j, list);
+			fmt_prec = get_precision(format, &j, list);
+			size = get_size(format, &j);
+			++j;
+			printed = trigger_print(format, &j, list, buffer,
+				flag, wid, fmt_prec, size);
+			if (printed == -1)
+				return (-1);
+			calc += printed;
 		}
-		else if (format[ib + 1] == 's')
-		{
-			str_count = _putss(va_arg(list, char *));
-			ib++;
-			calc += (str_count - 1);
-		}
-		else if (format[ib + 1] == '%')
-			_putchar('%');
-		calc++;
 	}
+	print_buffer(buffer, &buff_idx);
 	va_end(list);
 	return (calc);
 }
- /**
- * print_buffer - This function outputs the contents of buffer if it exist
- * @buffer: Array of characters
- * @buff_idx: Index at wch 2 add nxt char also represents the length.
- */
+
+/**
+* print_buffer - This function outputs the contents of buffer if it exist
+*
+* @buffer: Array of characters
+* @buff_idx: Index at wch 2 add nxt char also represents the length.
+* Return: void
+*/
+
 void print_buffer(char buffer[], int *buff_idx)
 {
 	if (*buff_idx > 0)
