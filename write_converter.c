@@ -1,6 +1,5 @@
 #include "main.h"
- 
-/************************* WRITE CONVERTER *************************/
+
 /**
  * handle_write_char – This function prints out a string you know
  * @c: character to be outputted or printed
