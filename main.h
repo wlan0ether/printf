@@ -49,8 +49,9 @@ struct fmt
 typedef struct fmt formt_t;
 
 int _printf(const char *format, ...);
-	int trigger_print(const char *fmt, int *j,
-va_list list, char buffer[], int flag, int wid, int fmt_prec, int size);
+
+int trigger_print(const char *fmt, int *j,
+	va_list list, char buffer[], int flag, int wid, int fmt_prec, int size);
 
 int _printf(const char *format, ...);
 
@@ -100,7 +101,7 @@ int rot_13string(va_list param, char buffer[],
 
 int call_size(const char *format, int *j);
 
-int call_flags(const char *format, int *j);
+int call_flag(const char *format, int *j);
 
 int call_precision(const char *format, int *j, va_list param);
 	int get_size(const char *format, int *j);
@@ -111,6 +112,19 @@ int trigger_print(const char *fmt, int *idx, va_list param,
 	char buffer[], int flag, int wid, int fmt_prec, int size);
 
 int is_print_ble(char c);
+
+int is_digit(char a);
+
+int handle_charac(char c, char buffer[],
+    int flag, int wid, int fmt_prec, int size);
+
+int write_digitber(int is_negative, int idx, char buffer[],
+    int flag, int wid, int fmt_prec, int size);
+
+int write_digit(int idx, char buffer[], int flag, int wid,
+    int fmt_prec, int length, char filler, char extra_c);
+
+
 
 int append_hex_code(char ascii_code, char buffer[], int j);
 

@@ -32,7 +32,7 @@ int pointer_variant(va_list param, char buffer[],
 
 	digit_adr = (unsigned long)addrs;
 
-	while (num_adr > 0)
+	while (digit_adr > 0)
 	{
 		buffer[idx--] = map_to[digit_adr % 16];
 		digit_adr /= 16;

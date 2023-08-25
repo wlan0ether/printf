@@ -17,12 +17,12 @@ int _printf(const char *format, ...)
 	if (format == NULL)
 		return (-1);
 
-	va_start(param, format);
+	va_start(list, format);
 	for (j = 0; format && format[j] != '\0'; j++)
 	{
 		if (format[j] != '%')
 		{
-			buffer[buff_ind++] = format[j];
+			buffer[buff_idx++] = format[j];
 			if (buff_idx == BUFF_SIZE)
 				print_buffer(buffer, &buff_idx);
 			calc++;
@@ -30,10 +30,10 @@ int _printf(const char *format, ...)
 		else
 		{
 			print_buffer(buffer, &buff_idx);
-			flag = get_flags(format, &j);
-			wid = get_width(format, &j, list);
-			fmt_prec = get_precision(format, &j, list);
-			size = get_size(format, &j);
+			flag = call_flag(format, &j);
+			wid = call_width(format, &j, list);
+			fmt_prec = call_precision(format, &j, list);
+			size = call_size(format, &j);
 			++j;
 			printed = trigger_print(format, &j, list, buffer,
 				flag, wid, fmt_prec, size);

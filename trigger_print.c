@@ -17,8 +17,8 @@ int trigger_print(const char *fmt, int *idx, va_list list, char buffer[],
 {
 	int j, unknow_len = 0, printed_charr = -1;
 	formt_t fmt_types[] = {
-		{'c', print_char}, {'s', print_string}, {'%', print_percent},
-		{'i', print_int}, {'d', print_int}, {'b', print_binary},
+		{'c', print_char}, {'s', print_string}, {'%', print_per_cent},
+		{'i', print_intgrs}, {'d', print_intgrs}, {'b', print_bi_nary},
 		{'u', print_nonsigned}, {'o', print_octal}, {'x', hexadecimal_funct},
 		{'X', print_higher_hexa}, {'p', pointer_variant}, {'S', non_printable},
 		{'r', reverse_funct}, {'R', rot_13string}, {'\0', NULL}
@@ -29,7 +29,7 @@ int trigger_print(const char *fmt, int *idx, va_list list, char buffer[],
 		if (fmt[*idx] == fmt_types[j].fmt)
 			return (fmt_types[j].fn(list, buffer, flag, wid, fmt_prec, size));
 	}
-	if (fmt_types[j].fmt == '\0)
+	if (fmt_types[j].fmt == '\0')
 	{
 		if (fmt[*idx] == '\0')
 			return (-1);

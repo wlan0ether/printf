@@ -119,7 +119,10 @@ int print_intgrs(va_list param, char buffer[],
 	n = convert_number_size(n, size);
 
 	if (n == 0)
+	{
 		buffer[j--] = '0';
+		
+	}
 
 	buffer[BUFF_SIZE - 1] = '\0';
 	num = (unsigned long int)n;
@@ -137,7 +140,7 @@ int print_intgrs(va_list param, char buffer[],
 
 	j++;
 
-	return (write_digitber(is_negative, i, buffer,
+	return (write_digitber(is_negative, j, buffer,
 		flag, wid, fmt_prec, size));
 }
 
