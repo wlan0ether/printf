@@ -1,11 +1,7 @@
 #include "main.h"
-<<<<<<< HEAD
  
 void print_buffer(char buffer[], int *buff_idx);
  
-=======
-
->>>>>>> refs/remotes/origin/master
 /**
  * _printf - Printf function
  * @format: format.
@@ -13,16 +9,15 @@ void print_buffer(char buffer[], int *buff_idx);
  */
 int _printf(const char *format, ...)
 {
-<<<<<<< HEAD
         	int j, printed = 0, calc = 0;
         	int flag, wid, fmt_prec, size, buff_idx = 0;
-        	va_list param;
+        	va_list list;
         	char buffer[BUFF_SIZE];
  
         	if (format == NULL)
                     	return (-1);
  
-        	va_start(param, format);
+        	va_start(list, format);
  
         	for (j = 0; format && format[j] != '\0'; j++)
         	{
@@ -52,17 +47,16 @@ int _printf(const char *format, ...)
  
         	print_buffer(buffer, &buff_idx);
  
-        	va_end(param);
+        	va_end(list);
  
         	return (calc);
-=======
-	va_list param;
+	va_list list;
 	unsigned int ib, calc = 0, str_count;
 
 	if (!format || (format[0] == '%' && format[1] == '\0'))
 		return (-1);
 
-	va_start(param, format);
+	va_start(list, format);
 
 	for (ib = 0; format[ib] != '\0'; ib++)
 	{
@@ -72,12 +66,12 @@ int _printf(const char *format, ...)
 		}
 		else if (format[ib] == '%' && format[ib + 1] == 'c')
 		{
-			_putchar(va_arg(param, int));
+			_putchar(va_arg(list, int));
 			ib++;
 		}
 		else if (format[ib + 1] == 's')
 		{
-			str_count = _putss(va_arg(param, char *));
+			str_count = _putss(va_arg(list, char *));
 			ib++;
 			calc += (str_count - 1);
 		}
@@ -85,9 +79,8 @@ int _printf(const char *format, ...)
 			_putchar('%');
 		calc++;
 	}
-	va_end(param);
+	va_end(list);
 	return (calc);
->>>>>>> refs/remotes/origin/master
 }
  /**
  * print_buffer - This function outputs the contents of buffer if it exist
